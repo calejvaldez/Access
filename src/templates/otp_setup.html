@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>2fa setup - cvaldez</title>
+        <link rel="stylesheet" href='{{host_static}}/static/styles/account_styles.css'>
+        <link rel="icon" href="{{host_static}}/static/images/access.ico" sizes="any">
+        <link rel="icon" href="{{host_static}}/static/images/access.svg" type="image/svg+xml">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    </head>
+
+    <body>
+        <div id="banner"></div>
+        <div id="login-box">
+            <div id="login-info-text">
+                <h1 class="cvdev-text-title">Set up 2FA</h1>
+                <p class="cvdev-text-desc">Secure your account by using an authenticator app.</p>
+            </div>
+
+            <div id="auth-app-setup">
+                <div id="qrcode"></div>
+                <p id="qrcode-setup-text" class="cvdev-text-optional">1234567890</p>
+            </div>
+
+            <div id="login-input-div">
+                <input id="input-otp" class="cvdev-input" type="text" maxlength="6" placeholder="- - - - - -" autocomplete="one-time-code">
+            </div>
+
+            <div id="login-boxes-div">
+                <button id="button-finish" class="cvdev-button-primary">Finish</button>
+                <button id="button-skip" class="cvdev-button-bg">Skip</button>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function handleTOTPRequest() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    let data = JSON.parse(this.responseText);
+
+                    document.getElementById('qrcode-setup-text').textContent = data.setup_code;
+
+                    new QRCode(document.getElementById("qrcode"), {
+                        text: data.setup_code,
+                        width: 180,
+                        height: 180,
+                        colorDark : "#2A7FC0",
+                        colorLight : "#EBF3FF",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                }
+            }
+
+            let xhttp = new XMLHttpRequest();
+            xhttp.open('GET', '/api/account/totp/');
+            xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
+            xhttp.onreadystatechange = handleTOTPRequest;
+
+            xhttp.send();
+        </script>
+
+        <script src="{{host_static}}/static/js/otp_setup.js"></script>
+    </body>
+</html>

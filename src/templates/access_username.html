@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>username settings - access</title>
+        <link rel="stylesheet" href='{{host_static}}/static/styles/account_styles.css'>
+        <link rel="icon" href="{{host_static}}/static/images/access.ico" sizes="any">
+        <link rel="icon" href="{{host_static}}/static/images/access.svg" type="image/svg+xml">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <div id="banner"></div>
+        <div id="account-box">
+            <div id="account-box-text">
+                <h1 id="hello-user" class="cvdev-text-title">Username Settings</h1>
+                <p id="text-current-username" class="cvdev-text-desc">Current username: ...</p>
+            </div>
+
+            <div class="account-center-change-div">
+                <input id="text-new-username" class="cvdev-input" type="text" placeholder="New username" autocomplete="off">
+                <button disabled id="button-edit-username" class="cvdev-button-primary">Save</button>
+            </div>
+        </div>
+
+        <script src="{{host_static}}/static/js/access_username.js"></script>
+    </body>
+</html>

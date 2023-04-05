@@ -1,0 +1,8 @@
+.idea
+__pycache__
+DB DOCS.md
+API DOCS.md
+test_user.py
+wsgi.py
+LL API DOCS.md
+.vscode
