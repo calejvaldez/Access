@@ -6,35 +6,54 @@ import json
 
 app = Flask(__name__, static_folder="./static/")
 
+
 ####################################################################################################
 # AUTHENTICATION
 # cvaldez.dev/account/
 @app.route('/account/')
 def auth_index():
+    # The main page users go to.
+    # If they're not logged in, it shows a promotional page
     return render_template('account.html', host_static=os.getenv('host_static'))
+
 
 @app.route('/account/login/')
 def login():
+    # The page where users can log in.
+    # If they're already logged in, goes to /account/
     return render_template('login.html', host_static=os.getenv('host_static'))
+
 
 @app.route('/account/login/otp/')
 def login_otp():
+    # The page where users use an TOTP to log in.
+    # If they're already logged in, goes to /account/
     return render_template('otp.html', host_static=os.getenv('host_static'))
+
 
 @app.route('/account/signup/')
 def signup():
+    # The page where users can sign in.
+    # If they're already logged in, goes to /account/
     return render_template('signup.html', host_static=os.getenv('host_static'))
+
 
 @app.route('/account/signup/otp/')
 def signup_otp():
+    # The page where users can enable OTP.
+    # If they're already logged in, goes to /account/
     return render_template('otp_setup.html', host_static=os.getenv('host_static'))
+
 
 @app.route('/account/edit-username/')
 def edit_username():
+    # The page where users can edit their username
     return render_template('access_username.html', host_static=os.getenv('host_static'))
+
 
 @app.route('/account/edit-password/')
 def edit_password():
+    # The page where users can edit their passwords
     return render_template('access_password.html', host_static=os.getenv('host_static'))
 
 ####################################################################################################
@@ -42,10 +61,17 @@ def edit_password():
 # cvaldez.dev/api/account/
 @app.route('/api/account/info/')
 def api_account_info():
+    """
+    Gets information about the logged-in user.
+
+    :return: Information about the user
+    """
     try:
+        # Identifies the user through their token
         token = Token(request.headers['Bearer'])
         user = token.owner()
 
+        # If the user has TOTP, make sure they logged in using 2FA
         if user.has_totp() and token.type() != 'T':
             return Response(json.dumps({"message": "ERROR: Token of type P. Type T required."}),
                             status=401)
@@ -58,9 +84,11 @@ def api_account_info():
 def api_account_update():
     data = json.loads(request.data)
     try:
+        # Identifies the user through their token
         token = Token(request.headers['Bearer'])
         user = token.owner()
 
+        # If the user has TOTP, make sure they logged in using 2FA
         if user.has_totp() and token.type() != 'T':
             return Response({"message": 'ERROR: Token must be of type T if they have a totp.'},
                             status=401)
@@ -95,6 +123,8 @@ def api_account_login():
     data = json.loads(request.data)
 
     if data['setup']:
+        # This is where account creation happens
+        # Ensures the Password and Username rules are followed
         try:
             user = User.create(data['username'], data['password'])
 
@@ -123,9 +153,11 @@ def api_account_login():
                 "message": "ERROR: Password violated Password Rules."
             }, status = 401)
     else:
+        # This is where logging in happens
         try:
             user = User(data['username'])
 
+            # Verifies password
             if user.check_password(data['password']):
                 return json.dumps({
                     "token": str(user.generate_token('P')),
@@ -146,24 +178,35 @@ def api_account_login():
 
 @app.route('/api/account/totp/', methods=['GET', 'POST'])
 def api_account_totp():
-    # token hidden under base64 'username:token'
     try:
+        # Verifies the token exists
         token = Token(request.headers['Bearer'])
     except InvalidTokenError:
         return Response(json.dumps(
             {"message": "ERROR: Could not verify login."}
         ), status=401)
+    # Identify user using token
     user = token.owner()
 
     if request.method == "GET":
-        # generate a new totp
+        """
+        This is for setting up TOTP.
+        
+        :returns: A setup code
+        """
+
+        # If the user has TOTP, make sure they logged in using 2FA
         if user.has_totp() and token.type() != 'T':
             return Response({"message": 'ERROR: Token must be of type T if they have a totp.'},
                             status = 401)
 
         return json.dumps({"setup_code": user.generate_2fa_base32()})
     elif request.method == "POST":
-        # verify a totp
+        """
+        This is where 2FA happens.
+        
+        :returns: Whether or not it worked
+        """
         data = json.loads(request.data)
         if data['setup']:
             success = user.save_2fa(data['code'])
