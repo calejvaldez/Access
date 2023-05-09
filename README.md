@@ -12,7 +12,6 @@ I'm currently updating Access, so it's currently unavailable. Look below to see 
 Access 1.1 will include:
 - [Passkey support](https://www.passkeys.com/)
 - Overview of all the apps you use
-- 2FA management
 - Delete account feature
 - Requesting a Developer Token
 - A neat promotional page in the root page
