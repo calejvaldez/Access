@@ -15,3 +15,4 @@ Access 1.1 will include:
 - 2FA management
 - Delete account feature
 - Requesting a Developer Token
+- A neat promotional page in the root page
