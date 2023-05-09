@@ -10,6 +10,7 @@ bp = Blueprint('access', __name__,
                static_folder='static',
                url_prefix='/access/')
 
+
 @bp.route('/account/')
 def auth_index():
     # The main page users go to.
