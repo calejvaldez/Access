@@ -1,13 +1,16 @@
+# app.py
+# Carlos Valdez
+
+from flask import Flask
+from .cvaldez import access
 
 
-app = Flask(__name__, static_folder="./static/")
+def create_app():
+    inner_app = Flask(__name__, static_folder=None)
+    inner_app.register_blueprint(access.views.bp)
+    inner_app.register_blueprint(access.api.bp)
+
+    return inner_app
 
 
-####################################################################################################
-# AUTHENTICATION
-# cvaldez.dev/account/
-
-
-####################################################################################################
-# AUTHENTICATION API
-# cvaldez.dev/api/account/
+app = create_app()
