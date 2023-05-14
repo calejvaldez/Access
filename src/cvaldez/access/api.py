@@ -1,6 +1,6 @@
 from flask import Blueprint, request, Response
-from SiteTools.user import User, Token
-from SiteTools.exceptions import UserNotFoundError, InvalidTokenError, DuplicateUsernameError, UsernameRuleError, PasswordRuleError
+from .SiteTools.user import User, Token
+from .SiteTools.exceptions import UserNotFoundError, InvalidTokenError, DuplicateUsernameError, UsernameRuleError, PasswordRuleError
 import json
 
 bp = Blueprint('access api', __name__,
