@@ -1,0 +1,12 @@
+body {
+    background-color: #EBF3FF;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#your-identity {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
