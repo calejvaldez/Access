@@ -6,7 +6,7 @@ let button_signup = document.getElementById('button-signup');
 let banner = document.getElementById('banner');
 
 let apps = [{name: "Access", url: "/access/settings/"},
-    {name: "Our Summer", url: "/our-summer/"}];
+    {name: "Our Summer", url: "/our-summer/letters/"}];
 
 function getRedirect() {
     let queryString = window.location.search;

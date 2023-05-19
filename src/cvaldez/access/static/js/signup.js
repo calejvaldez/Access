@@ -4,7 +4,7 @@ let input_password = document.getElementById('input-password');
 let button_signup = document.getElementById('button-signup');
 
 let apps = [{name: "Access", url: "/access/settings/"},
-    {name: "Our Summer", url: "/our-summer/"}];
+    {name: "Our Summer", url: "/our-summer/letters/"}];
 
 function getRedirect() {
     let queryString = window.location.search;
