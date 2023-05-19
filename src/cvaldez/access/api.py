@@ -9,7 +9,7 @@ bp = Blueprint('access api', __name__,
                url_prefix='/api/access/')
 
 
-@bp.route('/api/account/info/')
+@bp.route('/info/')
 def api_account_info():
     """
     Gets information about the logged-in user.
@@ -30,7 +30,7 @@ def api_account_info():
         return Response(json.dumps({"message": "ERROR: Could not confirm login."}), status=401)
 
 
-@bp.route('/api/account/update/', methods=['POST'])
+@bp.route('/update/', methods=['POST'])
 def api_account_update():
     data = json.loads(request.data)
     try:
@@ -69,7 +69,7 @@ def api_account_update():
         return json.dumps({"message": "ERROR: Could not confirm login."})
 
 
-@bp.route('/api/account/login/', methods=['POST'])
+@bp.route('/login/', methods=['POST'])
 def api_account_login():
     data = json.loads(request.data)
 
@@ -127,7 +127,7 @@ def api_account_login():
             }), status=401)
 
 
-@bp.route('/api/account/totp/', methods=['GET', 'POST'])
+@bp.route('/totp/', methods=['GET', 'POST'])
 def api_account_totp():
     try:
         # Verifies the token exists

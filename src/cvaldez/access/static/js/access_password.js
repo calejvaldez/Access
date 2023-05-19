@@ -49,7 +49,7 @@ button_save_username.addEventListener('click', () => {
         button_save_username.textContent = "Working...";
 
         let xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '/api/account/update/');
+        xhttp.open('POST', '/api/access/update/');
         xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
         xhttp.onreadystatechange = handlePasswordRequest;
 
@@ -75,18 +75,18 @@ function handleInfoRequest() {
 
         localStorage.setItem('usernameAndJoinDate', JSON.stringify({username: data.username, joined: data.joined}));
     } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
-        window.location.href = `/account/login/?forward=0`
+        window.location.href = `/access/login/?forward=0`
     }
 }
 
 if (localStorage.getItem('cvd_token') !== '') {
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/account/info/');
+    xhttp.open('GET', '/api/access/info/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
     xhttp.onreadystatechange = handleInfoRequest;
     xhttp.send();
 } else {
-    window.location.href = `/account/login/?forward=0`
+    window.location.href = `/access/login/?forward=0`
 }
 
 set_banner(banner, 'Password requirements: 10 characters minimum, 1 uppercase letter, 1 lowercase letter, 1 special character, 1 number, and no whitespace, ', 'warning')

@@ -3,10 +3,7 @@ let input_username = document.getElementById('input-username');
 let input_password = document.getElementById('input-password');
 let button_signup = document.getElementById('button-signup');
 
-let apps = [{name: "Access", url: "/account/"},
-    {name: "Love Letters", url: "/love/"},
-    {name: "Admin View", url: "/admin/"},
-    {name: "Roommate Portal", url: "/roommates/"}];
+let apps = [{name: "Access", url: "/access/settings/"}];
 
 function getRedirect() {
     let queryString = window.location.search;
@@ -83,7 +80,7 @@ function handleRequest() {
         }
         localStorage.setItem('cvd_token', data.token);
 
-        window.location.href = `/account/signup/otp/?${urlF}`;
+        window.location.href = `/access/settings/`;
 
     } else if (this.readyState === XMLHttpRequest.DONE && this.status === 400) {
         let data = JSON.parse(this.responseText);
@@ -111,7 +108,7 @@ button_signup.addEventListener('click', () => {
        button_signup.textContent = "Working...";
 
        let xhttp = new XMLHttpRequest();
-       xhttp.open('POST', '/api/account/login/');
+       xhttp.open('POST', '/api/access/login/');
        xhttp.onreadystatechange = handleRequest;
 
        xhttp.send(JSON.stringify({
@@ -135,7 +132,7 @@ if (localStorage.getItem('cvd_token') !== '') {
     button_signup.textContent = "Working...";
 
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/account/info/');
+    xhttp.open('GET', '/api/access/info/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
     xhttp.onreadystatechange = handleInfoRequest;
     xhttp.send();

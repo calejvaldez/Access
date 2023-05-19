@@ -44,7 +44,7 @@ button_save_username.addEventListener('click', () => {
         button_save_username.textContent = "Working...";
 
         let xhttp = new XMLHttpRequest();
-        xhttp.open('POST', '/api/account/update/');
+        xhttp.open('POST', '/api/access/update/');
         xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
         xhttp.onreadystatechange = handleUsernameRequest;
 
@@ -72,7 +72,7 @@ function handleInfoRequest() {
 
         text_current_username.textContent = `Current username: ${data.username}`;
     } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
-        window.location.href = `/account/login/?forward=0`
+        window.location.href = `/access/login/?forward=0`
     }
 }
 
@@ -84,12 +84,12 @@ if (localStorage.getItem('cvd_token') !== '') {
     }
 
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/account/info/');
+    xhttp.open('GET', '/api/access/info/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
     xhttp.onreadystatechange = handleInfoRequest;
     xhttp.send();
 } else {
-    window.location.href = `/account/login/?forward=0`
+    window.location.href = `/access/login/?forward=0`
 }
 
 set_banner(banner, 'Usernames requirements: 3-20 characters, all lowercase, no whitespace, and no special characters.', 'warning')

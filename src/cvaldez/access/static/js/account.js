@@ -30,11 +30,11 @@ function set_banner(banner, text, type) {
 }
 
 button_edit_username.addEventListener('click', () => {
-    window.location.href = "/account/edit-username/"
+    window.location.href = "/access/settings/username/"
 });
 
 button_edit_password.addEventListener('click', () => {
-    window.location.href = "/account/edit-password/"
+    window.location.href = "/access/settings/password/"
 })
 
 function handleInfoRequest() {
@@ -46,7 +46,7 @@ function handleInfoRequest() {
         hello_user.textContent = `Hello, ${data.username}!`
         join_date.textContent = `Joined: ${getStringDate(data.joined)}`
     } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
-        window.location.href = `/account/login/?forward=0`
+        window.location.href = `/access/login/?forward=0`
     }
 }
 
@@ -59,10 +59,10 @@ if (localStorage.getItem('cvd_token') !== '') {
     }
 
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/account/info/');
+    xhttp.open('GET', '/api/access/info/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
     xhttp.onreadystatechange = handleInfoRequest;
     xhttp.send();
 } else {
-    window.location.href = `/account/login/?forward=0`
+    window.location.href = `/access/login/?forward=0`
 }

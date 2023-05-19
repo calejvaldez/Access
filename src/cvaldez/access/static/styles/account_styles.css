@@ -1,0 +1,283 @@
+body {
+    background-color: #ADDCFF;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 50px
+}
+
+.cvdev-text-title {
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.cvdev-text-desc {
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+.cvdev-text-optional {
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.cvdev-input {
+    color: black;
+    background-color: white;
+    height: 50px;
+    width: 100%;
+    min-width: 150px;
+    max-width: 300px;
+
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+    padding-left: 10px;
+    margin: 10px;
+}
+
+.cvdev-button-primary {
+    color: white;
+    background-color: #2A7FC0;
+    height: 40px;
+    width: 100%;
+    max-width: 185px;
+
+    text-align: center;
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    margin: 10px;
+}
+
+.cvdev-button-primary:hover {
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+
+    background-color: #359AE8;
+}
+
+.cvdev-button-primary:disabled {
+    cursor: default;
+    background-color: #D1D1D1;
+}
+
+.cvdev-button-bg {
+    color: #2A7FC0;
+    background-color: transparent;
+    height: 30px;
+    min-width: 80px;
+
+    text-align: center;
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+
+    border: none;
+
+    margin: 10px;
+}
+
+.cvdev-button-bg:hover {
+    cursor: pointer;
+    transition: color 0.5s ease;
+
+    color: #359AE8;
+}
+
+.cvdev-button-bg-danger {
+    color: #C02A2A;
+    background-color: transparent;
+    height: 30px;
+    min-width: 80px;
+
+    text-align: center;
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+
+    border: none;
+
+    margin: 10px;
+}
+
+.cvdev-button-bg-danger:hover {
+    cursor: pointer;
+    transition: color 0.5s ease;
+
+    color: #E83434;
+}
+
+.cvdev-banner-success {
+    background-color: #C9FFAF;
+    border: 2px solid #7CB860;
+    border-radius: 5px;
+    width: 90vw;
+
+    text-align: center;
+
+    margin: 20px;
+}
+
+.cvdev-banner-warning {
+    background-color: #FFFCAF;
+    border: 2px solid #B8B460;
+    border-radius: 5px;
+    width: 90vw;
+
+    text-align: center;
+
+    margin: 20px;
+}
+
+.cvdev-banner-error {
+    background-color: #FFAFAF;
+    border: 2px solid #B86060;
+    border-radius: 5px;
+    width: 90vw;
+
+    text-align: center;
+
+    margin: 20px;
+}
+
+#login-box {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    text-align: center;
+    background-color: #EBF3FF;
+    border: 3px solid black;
+    border-radius: 20px;
+
+    width: 100%;
+    min-width: 300px;
+    max-width: 450px;
+    min-height: 600px;
+
+    justify-content: space-evenly;
+}
+
+#account-box {
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+
+    text-align: center;
+    background-color: #EBF3FF;
+    border: 3px solid black;
+    border-radius: 20px;
+
+    width: 100%;
+    min-width: 300px;
+    max-width: 800px;
+    min-height: 600px;
+
+    justify-content: space-evenly;
+    overflow-wrap: anywhere;
+}
+
+#login-info-text {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    margin: 35px;
+}
+
+#login-input-div {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    margin: 0 35px;
+}
+
+#login-boxes-div {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.account-center-change-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+    align-items:center;
+    align-content: center;
+
+    width: 100%;
+    min-width: 250px;
+    max-width: 1000px;
+
+    padding: 30px;
+}
+
+.account-center-label-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    padding: 30px;
+}
+
+.account-center-change-elements {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    width: 500px;
+
+    align-items: center;
+}
+
+#auth-app-setup {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+#account-box-text {
+    max-width: 400px;
+    margin: 20px;
+}
+
+th {
+    height: 30px;
+
+}
+
+td {
+    padding: 20px;
+}
+
+table {
+    border: 1px black solid;
+    border-radius: 20px;
+
+    width: 100%;
+
+    font-family: K2D, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}

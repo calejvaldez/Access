@@ -5,10 +5,7 @@ let button_login = document.getElementById('button-login');
 let button_signup = document.getElementById('button-signup');
 let banner = document.getElementById('banner');
 
-let apps = [{name: "Access", url: "/account/"},
-    {name: "Love Letters", url: "/love/"},
-    {name: "Admin View", url: "/admin/"},
-    {name: "Roommate Portal", url: "/roommates/"}];
+let apps = [{name: "Access", url: "/access/settings/"}];
 
 function getRedirect() {
     let queryString = window.location.search;
@@ -63,10 +60,10 @@ function handleRequest() {
         button_login.textContent = "Logging in...";
 
         if (data.totp_required === true) {
-            window.location.href = `/account/login/otp/?${urlF}`
+            window.location.href = `/access/login/otp/?${urlF}`
         } else {
             let xhttp = new XMLHttpRequest();
-            xhttp.open('GET', '/api/account/info/');
+            xhttp.open('GET', '/api/access/info/');
             xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
             xhttp.onreadystatechange = handleInfoRequest;
             xhttp.send();
@@ -95,7 +92,7 @@ button_login.addEventListener('click', () => {
        button_login.textContent = "Working...";
 
        let xhttp = new XMLHttpRequest();
-       xhttp.open('POST', '/api/account/login/');
+       xhttp.open('POST', '/api/access/login/');
        xhttp.onreadystatechange = handleRequest;
 
        xhttp.send(JSON.stringify({
@@ -111,7 +108,7 @@ button_signup.addEventListener('click', () => {
         banner.lastChild.remove();
     }
 
-    window.location.href = `/account/signup/?${urlF}`;
+    window.location.href = `/access/signup/?${urlF}`;
 });
 
 if (localStorage.getItem('cvd_token') !== '') {
@@ -119,7 +116,7 @@ if (localStorage.getItem('cvd_token') !== '') {
     button_login.textContent = "Working...";
 
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/account/info/');
+    xhttp.open('GET', '/api/access/info/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
     xhttp.onreadystatechange = handleInfoRequest;
     xhttp.send();
