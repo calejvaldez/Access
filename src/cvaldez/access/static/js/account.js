@@ -30,11 +30,11 @@ function set_banner(banner, text, type) {
 }
 
 button_edit_username.addEventListener('click', () => {
-    window.location.href = "/access/settings/username/"
+    window.location.href = "/access/settings-username/"
 });
 
 button_edit_password.addEventListener('click', () => {
-    window.location.href = "/access/settings/password/"
+    window.location.href = "/access/settings-password/"
 })
 
 function handleInfoRequest() {

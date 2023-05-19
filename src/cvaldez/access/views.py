@@ -27,7 +27,7 @@ def login():
     return render_template('login.html')
 
 
-@bp.route("/login/otp/")
+@bp.route("/login-otp/")
 def otp():
     return render_template('otp.html')
 
@@ -37,11 +37,11 @@ def signup():
     return render_template('signup.html')
 
 
-@bp.route("/settings/username/")
+@bp.route("/settings-username/")
 def edit_username():
     return render_template('edit_username.html')
 
 
-@bp.route("/settings/password/")
+@bp.route("/settings-password/")
 def edit_password():
     return render_template('edit_password.html')

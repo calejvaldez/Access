@@ -60,7 +60,7 @@ function handleRequest() {
         button_login.textContent = "Logging in...";
 
         if (data.totp_required === true) {
-            window.location.href = `/access/login/otp/?${urlF}`
+            window.location.href = `/access/login-otp/?${urlF}`
         } else {
             let xhttp = new XMLHttpRequest();
             xhttp.open('GET', '/api/access/info/');
