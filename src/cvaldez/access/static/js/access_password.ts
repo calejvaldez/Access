@@ -1,8 +1,8 @@
-let banner = document.getElementById('banner');
-let button_save_username = document.getElementById('button-edit-password');
-let input_new_password = document.getElementById('input-new-password');
+let banner_for_password = document.getElementById('banner') as HTMLDivElement;
+let button_save_password = document.getElementById('button-edit-password') as HTMLButtonElement;
+let input_new_password = document.getElementById('input-new-password') as HTMLInputElement;
 
-function isValidPassword(p) {
+function isValidPassword(p: string) {
     if (p.length < 10) {
         return false
     } else if (!/[A-Z]/.test(p)) {
@@ -27,9 +27,9 @@ function handlePasswordRequest() {
         let data = JSON.parse(this.responseText);
 
         if (!data.message.toString().includes('ERROR')) {
-            set_banner(banner, data.message, 'success');
+            set_banner_password(banner_for_password, data.message, 'success');
         } else {
-            set_banner(banner, 'An unknown error occurred. Please try again later.', 'error');
+            set_banner_password(banner_for_password, 'An unknown error occurred. Please try again later.', 'error');
         }
     }
 
@@ -38,19 +38,19 @@ function handlePasswordRequest() {
 }
 
 button_save_username.addEventListener('click', () => {
-    while (banner.lastChild) {
-        banner.lastChild.remove();
+    while (banner_for_password.lastChild) {
+        banner_for_password.lastChild.remove();
     }
 
     if (input_new_password.value === '') {
-        set_banner(banner, 'ERROR: Password cannot be empty!', 'error');
+        set_banner_password(banner_for_password, 'ERROR: Password cannot be empty!', 'error');
     } else {
         button_save_username.disabled = true;
         button_save_username.textContent = "Working...";
 
         let xhttp = new XMLHttpRequest();
         xhttp.open('POST', '/api/access/update/');
-        xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
+        xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
         xhttp.onreadystatechange = handlePasswordRequest;
 
         xhttp.send(JSON.stringify({
@@ -59,7 +59,7 @@ button_save_username.addEventListener('click', () => {
     }
 })
 
-function set_banner(banner, text, type) {
+function set_banner_password(banner: HTMLDivElement, text: string, type: string) {
     let text_p = document.createElement('p');
 
     banner.className = `cvdev-banner-${type}`;
@@ -82,11 +82,11 @@ function handleInfoRequest() {
 if (localStorage.getItem('cvd_token') !== '') {
     let xhttp = new XMLHttpRequest();
     xhttp.open('GET', '/api/access/info/');
-    xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
+    xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
     xhttp.onreadystatechange = handleInfoRequest;
     xhttp.send();
 } else {
     window.location.href = `/access/login/?forward=0`
 }
 
-set_banner(banner, 'Password requirements: 10 characters minimum, 1 uppercase letter, 1 lowercase letter, 1 special character, 1 number, and no whitespace, ', 'warning')
+set_banner_password(banner_for_password, 'Password requirements: 10 characters minimum, 1 uppercase letter, 1 lowercase letter, 1 special character, 1 number, and no whitespace, ', 'warning')
