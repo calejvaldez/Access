@@ -1,12 +1,12 @@
-let banner = document.getElementById('banner');
-let button_edit_username = document.getElementById('button-edit-username');
-let button_edit_password = document.getElementById('button-edit-password');
+let banner_for_account = document.getElementById('banner') as HTMLDivElement;
+let button_edit_username = document.getElementById('button-edit-username') as HTMLButtonElement;
+let button_edit_password = document.getElementById('button-edit-password') as HTMLButtonElement;
 
-let hello_user = document.getElementById('hello-user');
-let join_date = document.getElementById('joined-date');
+let hello_user = document.getElementById('hello-user') as HTMLHeadingElement;
+let join_date = document.getElementById('joined-date') as HTMLParagraphElement;
 
 
-function getStringDate(ts) {
+function getStringDate(ts: string) {
     let utcSeconds = parseFloat(ts);
     let d = new Date(0);
     d.setUTCSeconds(utcSeconds);
@@ -16,10 +16,10 @@ function getStringDate(ts) {
                     'July', 'August', 'September', 'October', 'November', 'December']
 
 
-    return `${months.at(d.getMonth())} ${d.getDate()}, ${d.getFullYear()}`
+    return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
 }
 
-function set_banner(banner, text, type) {
+function set_banner_account(banner: HTMLDivElement, text: string, type: string) {
     let text_p = document.createElement('p');
 
     banner.className = `cvdev-banner-${type}`;
@@ -37,7 +37,7 @@ button_edit_password.addEventListener('click', () => {
     window.location.href = "/access/settings-password/"
 })
 
-function handleInfoRequest() {
+function handleInfoRequestAccount() {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         let data = JSON.parse(this.responseText);
 
@@ -52,7 +52,7 @@ function handleInfoRequest() {
 
 if (localStorage.getItem('cvd_token') !== '') {
     if (localStorage.getItem('usernameAndJoinDate') !== null) {
-        let uAJD = JSON.parse(localStorage.getItem('usernameAndJoinDate'));
+        let uAJD = JSON.parse(localStorage.getItem('usernameAndJoinDate') as string);
 
         hello_user.textContent = `Hello, ${uAJD.username}!`;
         join_date.textContent = `Joined: ${getStringDate(uAJD.joined)}`
@@ -60,7 +60,7 @@ if (localStorage.getItem('cvd_token') !== '') {
 
     let xhttp = new XMLHttpRequest();
     xhttp.open('GET', '/api/access/info/');
-    xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token'));
+    xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
     xhttp.onreadystatechange = handleInfoRequest;
     xhttp.send();
 } else {
