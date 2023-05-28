@@ -69,7 +69,7 @@ function set_banner_password(banner: HTMLDivElement, text: string, type: string)
     banner.appendChild(text_p);
 }
 
-function handleInfoRequest() {
+function handleInfoRequestPassword() {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         let data = JSON.parse(this.responseText);
 
@@ -83,7 +83,7 @@ if (localStorage.getItem('cvd_token') !== '') {
     let xhttp = new XMLHttpRequest();
     xhttp.open('GET', '/api/access/info/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
-    xhttp.onreadystatechange = handleInfoRequest;
+    xhttp.onreadystatechange = handleInfoRequestPassword;
     xhttp.send();
 } else {
     window.location.href = `/access/login/?forward=0`

@@ -61,7 +61,7 @@ if (localStorage.getItem('cvd_token') !== '') {
     let xhttp = new XMLHttpRequest();
     xhttp.open('GET', '/api/access/info/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
-    xhttp.onreadystatechange = handleInfoRequest;
+    xhttp.onreadystatechange = handleInfoRequestAccount;
     xhttp.send();
 } else {
     window.location.href = `/access/login/?forward=0`
