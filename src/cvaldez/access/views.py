@@ -32,11 +32,6 @@ def otp():
     return render_template('otp.html')
 
 
-@bp.route("/signup/")
-def signup():
-    return render_template('signup.html')
-
-
 @bp.route("/settings-username/")
 def edit_username():
     return render_template('edit_username.html')
