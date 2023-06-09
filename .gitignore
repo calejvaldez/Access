@@ -5,3 +5,5 @@ API DOCS.md
 test_user.py
 LL API DOCS.md
 .vscode
+*.css
+*.css.map
