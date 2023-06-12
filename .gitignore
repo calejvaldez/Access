@@ -8,5 +8,4 @@ LL API DOCS.md
 *.css
 *.css.map
 /src/cvaldez/access/access/
-tools.py
 *.js
