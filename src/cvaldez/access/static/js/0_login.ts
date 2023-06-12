@@ -102,13 +102,42 @@ function handleRequest() {
     button_login.textContent = "Log in";
 }
 
+function handleRequest_Username() {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        let d = JSON.parse(this.responseText);
+
+        button_login.disabled = false;
+        button_login.textContent = 'Log in';
+
+        if (d.exists) {
+            input_password.disabled = false;
+            input_password.hidden = false;
+        } else {
+            set_banner(banner, "ERROR: Username not found.", 'error');
+        }
+
+    } else if (this.readyState === XMLHttpRequest.DONE) {
+        set_banner(banner, "ERROR: Username not found.", 'error');
+    }
+}
+
 // Event listeners
 button_login.addEventListener('click', () => {
     while (banner.lastChild) {
         banner.lastChild.remove();
     }
 
-   if (input_username.value === '' || input_password.value === '') {
+    if (input_password.disabled) {
+        button_login.disabled = true;
+        button_login.textContent = "Working...";
+
+        let xhttp_username_check = new XMLHttpRequest();
+        xhttp_username_check.open("POST", '/api/access/account-exists/')
+        xhttp_username_check.onreadystatechange = handleRequest_Username;
+        xhttp_username_check.send(JSON.stringify({'username': input_username.value}))
+    }
+
+   else if (input_username.value === '' || input_password.value === '') {
        set_banner(banner, 'ERROR: Please fill out username and password.', 'error');
    } else {
        button_login.disabled = true;
