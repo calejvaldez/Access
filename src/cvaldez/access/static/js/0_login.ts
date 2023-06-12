@@ -102,6 +102,7 @@ function handleRequest() {
     button_login.textContent = "Log in";
 }
 
+// Event listeners
 button_login.addEventListener('click', () => {
     while (banner.lastChild) {
         banner.lastChild.remove();
@@ -125,7 +126,6 @@ button_login.addEventListener('click', () => {
    }
 });
 
-// Event listeners
 button_signup.addEventListener('click', () => {
     while (banner.lastChild) {
         banner.lastChild.remove();
