@@ -1,12 +1,18 @@
 from flask import Blueprint, request, Response
-from access import Identity, IdentityEditor, Token
-from access import UserNotFoundError, DuplicateUsernameError, UsernameRuleError, PasswordRuleError, InvalidTokenError
+from .tools import Identity, IdentityEditor, Token, get_access_dict
+from .tools import InvalidTokenError, DuplicateUsernameError, UsernameRuleError, PasswordRuleError, UserNotFoundError
 import json
 
 bp = Blueprint('access api', __name__,
                template_folder='templates',
                static_folder='static',
                url_prefix='/api/access/')
+
+
+
+@bp.route("/apps/", methods=["GET"])
+def get_apps():
+    return Response(json.dumps(get_access_dict()), status=200)
 
 
 @bp.route('/account-exists/', methods=['POST'])
