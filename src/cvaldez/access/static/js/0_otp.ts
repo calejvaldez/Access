@@ -87,6 +87,20 @@ function otp_handleRequest_Apps() {
     } else {
         otp_apps = {'0': {name: 'Access', url: '/access/settings/'}}
     }
+
+    otp_urlF = `app=${otp_getRedirect()}`
+
+    // Automatically log user in
+    if (localStorage.getItem('cvd_token') !== '') {
+        otp_button_login.disabled = true;
+        otp_button_login.textContent = "Working...";
+
+        let xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/api/access/verify-login/');
+        xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
+        xhttp.onreadystatechange = otp_handleRequest_Info;
+        xhttp.send();
+    }
 }
 
 // Event listeners
@@ -122,16 +136,4 @@ otp_apps_xhttp.open('GET', '/api/access/apps/');
 otp_apps_xhttp.onreadystatechange = otp_handleRequest_Apps;
 otp_apps_xhttp.send()
 
-let otp_urlF = `app=${otp_getRedirect()}`;
-
-// Automatically log user in
-if (localStorage.getItem('cvd_token') !== '') {
-    otp_button_login.disabled = true;
-    otp_button_login.textContent = "Working...";
-
-    let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/access/verify-login/');
-    xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
-    xhttp.onreadystatechange = otp_handleRequest_Info;
-    xhttp.send();
-}
+let otp_urlF: string | null = null;
