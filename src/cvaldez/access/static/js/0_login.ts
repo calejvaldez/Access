@@ -83,6 +83,18 @@ function handleRequest_Apps() {
     }
 
     access_data_text.textContent = `To use ${apps[getRedirect()].name}, please log in.`;
+
+    // Automatically log user in
+    if (localStorage.getItem('cvd_token') !== '') {
+        button_login.disabled = true;
+        button_login.textContent = "Working...";
+
+        let xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/api/access/verify-login/');
+        xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
+        xhttp.onreadystatechange = handleRequest_Info;
+        xhttp.send();
+    }
 }
 
 function handleRequest_Info() {
@@ -221,14 +233,3 @@ apps_xhttp.send()
 
 let urlF = `app=${getRedirect()}`;
 
-// Automatically log user in
-if (localStorage.getItem('cvd_token') !== '') {
-    button_login.disabled = true;
-    button_login.textContent = "Working...";
-
-    let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/access/verify-login/');
-    xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
-    xhttp.onreadystatechange = handleRequest_Info;
-    xhttp.send();
-}
