@@ -30,6 +30,9 @@ body {
     align-items: center;
 
     justify-content: center;
+
+    height: 98vh;
+    width: 98vw;
 }
 
 .cvdev-banner-success {
@@ -157,7 +160,7 @@ body {
     &:hover {
         cursor: pointer;
         transition: background-color 0.5s ease;
-        color: #359AE8;
+        background-color: #359AE8;
     };
 
     &:disabled {
