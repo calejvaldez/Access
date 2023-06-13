@@ -21,6 +21,17 @@ function otp_getRedirect(): string {
     }
 }
 
+function otp_set_banner(banner: HTMLDivElement, text: string, type: "success" | "warning" | "error") {
+    let text_p = document.createElement('p');
+
+    banner.className = `cvdev-banner-${type}`;
+    text_p.className = 'cvdev-text-desc';
+
+    text_p.textContent = text;
+    banner.appendChild(text_p);
+}
+
+// Handle API Requests
 function otp_handleRequest_Info() {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         let data = JSON.parse(this.responseText);
@@ -33,16 +44,6 @@ function otp_handleRequest_Info() {
         otp_button_login.disabled = false;
         otp_button_login.textContent = "Log in";
     }
-}
-
-function otp_set_banner(banner: HTMLDivElement, text: string, type: "success" | "warning" | "error") {
-    let text_p = document.createElement('p');
-
-    banner.className = `cvdev-banner-${type}`;
-    text_p.className = 'cvdev-text-desc';
-
-    text_p.textContent = text;
-    banner.appendChild(text_p);
 }
 
 function handleRequest_Login() {
@@ -80,6 +81,15 @@ function handleRequest_Login() {
     }
 }
 
+function otp_handleRequest_Apps() {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        otp_apps = JSON.parse(this.responseText);
+    } else {
+        otp_apps = {'0': {name: 'Access', url: '/access/settings/'}}
+    }
+}
+
+// Event listeners
 otp_button_login.addEventListener('click', () => {
     while (otp_banner.lastChild) {
         otp_banner.lastChild.remove();
@@ -105,15 +115,6 @@ otp_button_login.addEventListener('click', () => {
        }));
    }
 });
-
-
-function otp_handleRequest_Apps() {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        otp_apps = JSON.parse(this.responseText);
-    } else {
-        otp_apps = {'0': {name: 'Access', url: '/access/settings/'}}
-    }
-}
 
 // Once page loads
 let otp_apps_xhttp = new XMLHttpRequest();
