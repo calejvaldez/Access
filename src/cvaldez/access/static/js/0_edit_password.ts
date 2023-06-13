@@ -81,7 +81,7 @@ function epassword_handleRequest_Info() {
 
 if (localStorage.getItem('cvd_token') !== '') {
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/api/access/info/');
+    xhttp.open('GET', '/api/access/verify-login/');
     xhttp.setRequestHeader('Bearer', localStorage.getItem('cvd_token') as string);
     xhttp.onreadystatechange = epassword_handleRequest_Info;
     xhttp.send();
