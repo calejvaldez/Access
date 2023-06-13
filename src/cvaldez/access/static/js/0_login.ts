@@ -5,9 +5,11 @@ let input_password = document.getElementById('input-password') as HTMLInputEleme
 let button_login = document.getElementById('button-login') as HTMLButtonElement;
 let button_signup = document.getElementById('button-signup') as HTMLButtonElement;
 let banner = document.getElementById('banner') as HTMLDivElement;
+let access_text_title = document.getElementById("text-login-title") as HTMLHeadingElement;
 
 // Variables
 let apps = {};
+let setup_mode = false;
 
 // Interfaces
 interface Identity {
@@ -42,6 +44,34 @@ function set_banner(banner: HTMLDivElement, text: string, type: "success" | "war
 
     text_p.textContent = text;
     banner.appendChild(text_p);
+}
+
+function isValidUsername(u: string): boolean {
+    if (!(2 < u.length && u.length <= 20)) {
+        return false
+    } else if (/[~`!#$%\^&*+=\-\[\]\\';,./{}|\\":\s<>\?]/g.test(u)) {
+        return false
+    } else if (/[A-Z]/.test(u)) {
+        return false
+    }
+
+    return true
+}
+
+function isValidPassword(p: string): boolean {
+    if (p.length < 10) {
+        return false
+    } else if (!/[A-Z]/.test(p)) {
+        return false
+    } else if (!/[a-z]/.test(p)) {
+        return false
+    } else if (!/[0-9]/.test(p)) {
+        return false
+    } else if (!/[~`!#$%\^&*+=\-\[\]\\';,_./{}|\\":\s<>\?]/g.test(p)) {
+        return false
+    }
+
+    return true
 }
 
 // Handle Request Functions
@@ -91,7 +121,7 @@ function handleRequest() {
             xhttp.send();
         }
 
-    } else if (this.readyState === XMLHttpRequest.DONE && this.status === 401) {
+    } else if (this.readyState === XMLHttpRequest.DONE && (this.status === 401 || this.status === 400)) {
         let data = JSON.parse(this.responseText);
         set_banner(banner, data.message, 'error');
     } else if (this.readyState === XMLHttpRequest.DONE) {
@@ -150,7 +180,7 @@ button_login.addEventListener('click', () => {
        xhttp.send(JSON.stringify({
            "username": input_username.value,
            "password": input_password.value,
-           "setup": false
+           "setup": setup_mode
        }));
    }
 });
@@ -160,8 +190,29 @@ button_signup.addEventListener('click', () => {
         banner.lastChild.remove();
     }
 
-    window.location.href = `/access/signup/?${urlF}`;
+    button_signup.hidden = true;
+    button_login.textContent = "Sign up";
+    button_login.disabled = true;
+    setup_mode = true;
+    input_password.hidden = false;
+    input_password.disabled = false;
+    access_text_title.textContent = "Create account";
+    access_data_text.textContent = "All my projects with your new account.";
 });
+
+input_username.addEventListener('input', () => {
+    if (setup_mode && isValidPassword(input_password.value)) {
+        button_login.disabled = !isValidUsername(input_username.value);
+    }
+    
+});
+
+input_password.addEventListener('input', () => {
+    if (setup_mode && isValidUsername(input_username.value)) {
+        button_login.disabled = !isValidPassword(input_password.value);
+    }
+    
+})
 
 let apps_xhttp = new XMLHttpRequest();
 apps_xhttp.open('GET', '/api/access/apps/');
