@@ -12,7 +12,12 @@ bp = Blueprint('access api', __name__,
 
 @bp.route("/apps/", methods=["GET"])
 def get_apps():
-    return Response(json.dumps(get_access_dict()), status=200)
+    apps = get_access_dict()
+    for key, value in dict(apps).items():
+        if not value['url']:
+            del apps[key]
+
+    return Response(json.dumps(apps), status=200)
 
 
 @bp.route('/account-exists/', methods=['POST'])
