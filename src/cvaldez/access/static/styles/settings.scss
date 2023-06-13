@@ -21,6 +21,17 @@ $banner_border_color_error: #B86060;
     margin: 20px;
 }
 
+body {
+    background-color: $background_color;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+
+    justify-content: center;
+}
+
 .cvdev-banner-success {
     @include banner($banner_color_success, $banner_border_color_success);
 }
