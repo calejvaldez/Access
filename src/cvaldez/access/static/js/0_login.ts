@@ -10,6 +10,7 @@ let access_text_title = document.getElementById("text-login-title") as HTMLHeadi
 // Variables
 let apps = {};
 let setup_mode = false;
+let urlF: string | null = null;
 
 // Interfaces
 interface Identity {
@@ -83,6 +84,7 @@ function handleRequest_Apps() {
     }
 
     access_data_text.textContent = `To use ${apps[getRedirect()].name}, please log in.`;
+    urlF = `app=${getRedirect()}`;
 
     // Automatically log user in
     if (localStorage.getItem('cvd_token') !== '') {
@@ -230,6 +232,3 @@ let apps_xhttp = new XMLHttpRequest();
 apps_xhttp.open('GET', '/api/access/apps/');
 apps_xhttp.onreadystatechange = handleRequest_Apps;
 apps_xhttp.send()
-
-let urlF = `app=${getRedirect()}`;
-

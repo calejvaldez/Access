@@ -5,6 +5,7 @@ let otp_banner = document.getElementById('banner') as HTMLDivElement;
 
 // Variables
 let otp_apps = {};
+let otp_urlF: string | null = null;
 
 // Helper functions
 function otp_getRedirect(): string {
@@ -135,5 +136,3 @@ let otp_apps_xhttp = new XMLHttpRequest();
 otp_apps_xhttp.open('GET', '/api/access/apps/');
 otp_apps_xhttp.onreadystatechange = otp_handleRequest_Apps;
 otp_apps_xhttp.send()
-
-let otp_urlF: string | null = null;
